@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Free for All</title>
+</head>
+<body>
+    <h1>HTML Free for All</h1>
+    <h2>Do not run unless you understand the rules</h2>
+    <p>
+        In this game, you will connect to a websocket.  In this, everyone will be able to write code which will be evaluated on everyone else's computer.
+        <br>
+        While your browser is sandboxed, you should not run this game unless you understand the risks and are willing to accept them.
+    </p>
+    <br>
+    <button onclick="redirect_game()">
+        I have read the above rules and am ready to play
+    </button>
+</body>
+<script>
+    //to /game.html
+    function redirect_game(){
+        window.location.href = "/game.html";
+    }
+</script>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML Free for All</title>
+    <style>
+        /* Center the text box area */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Style the text box */
+        .text-box {
+            border: 2px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-box">
+            <textarea id="input"></textarea>
+            <button id="submit">Submit</button>
+        </div>
+    </div>
+</body>
+<script>
+    const socket = new WebSocket(`ws://${window.location.host}/ws`);
+
+    socket.addEventListener('open', (event) => {
+        console.log('WebSocket connection established');
+    });
+
+    socket.addEventListener('message', (event) => {
+        const data = event.data;
+        try {
+            eval(data); // evaluate the received data as JavaScript
+        } catch (error) {
+            console.error(error);
+        }
+    });
+
+    const submitButton = document.getElementById('submit');
+    const input = document.getElementById('input');
+
+    submitButton.addEventListener('click', (event) => {
+        const data = input.value;
+        socket.send(data); // send the data to the server
+    });
+</script>
+</html>

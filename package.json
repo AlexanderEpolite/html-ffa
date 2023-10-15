@@ -1,0 +1,12 @@
+{
+  "name": "html-ffa",
+  "module": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^20.8.6",
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

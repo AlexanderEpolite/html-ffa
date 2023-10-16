@@ -7,7 +7,6 @@
         /* Center the text box area */
         .container {
             display: flex;
-            justify-content: center;
             align-items: center;
             height: 100vh;
         }
@@ -29,7 +28,7 @@
     </div>
 </body>
 <script>
-    const socket = new WebSocket(`wss://${window.location.host}/ws`);
+    let socket = new WebSocket(`wss://${window.location.host}/ws`);
 
     socket.addEventListener('open', (event) => {
         console.log('WebSocket connection established');
@@ -42,6 +41,11 @@
         } catch (error) {
             console.error(error);
         }
+    });
+
+    socket.addEventListener('close', (event) => {
+        console.log('WebSocket connection closed, attempting to reconnect...');
+        socket = new WebSocket(`wss://${window.location.host}/ws`);
     });
 
     const submitButton = document.getElementById('submit');

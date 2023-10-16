@@ -44,28 +44,33 @@
 </body>
 <script>
     let socket = new WebSocket(`wss://${window.location.host}/ws`);
-
-    socket.addEventListener('open', (event) => {
-        console.log('WebSocket connection established');
-    });
-
-    socket.addEventListener('message', (event) => {
-        const data = event.data;
-        try {
-            eval(data); // evaluate the received data as JavaScript
-        } catch (error) {
-            console.error(error);
-        }
-    });
-
-    socket.addEventListener('close', (event) => {
-        console.log('WebSocket connection closed, attempting to reconnect...');
-        socket = new WebSocket(`wss://${window.location.host}/ws`);
-    });
-
+    
+    function addListeners() {
+        socket.addEventListener('open', (event) => {
+            console.log('WebSocket connection established');
+        });
+        
+        socket.addEventListener('message', (event) => {
+            const data = event.data;
+            try {
+                eval(data); // evaluate the received data as JavaScript
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        
+        socket.addEventListener('close', (event) => {
+            console.log('WebSocket connection closed, attempting to reconnect...');
+            socket = new WebSocket(`wss://${window.location.host}/ws`);
+            addListeners();
+        });
+    }
+    
+    addListeners();
+    
     const submitButton = document.getElementById('submit');
     const input = document.getElementById('input');
-
+    
     submitButton.addEventListener('click', (event) => {
         const data = input.value;
         socket.send(data); // send the data to the server
